@@ -86,14 +86,16 @@ yarn build
 Класс создания у управления данными продукта.
 
 Компонент наследования:
-`interface IProductItem {
+```typescript
+interface IProductItem {
     id: string;
     title: string;
     description?: string;
     image: string;
     category: string;
     price: number | null;
-}`
+}
+```
 
 ## Класс AppState
 Класс хранения состояния приложения (данных входящих в него компонентов).
@@ -111,14 +113,16 @@ yarn build
 
 
 Компонент наследования:
-`interface IAppState {
+```typescript
+interface IAppState {
     catalog: IProductItem[];
     basket: IProductItem[];
     preview: string | null;
     contact: IContactsForm | null;
     delivery: IDeliveryForm | null;
     order: IOrderForm | null;
-}`
+}
+```
 
 
 # Компоненты представления
@@ -127,71 +131,86 @@ yarn build
 Класс управляет и отображает форму ввода контактов для составления заказа.
 
 Компонент наследования:
-`interface IContactsForm {
+```typescript
+interface IContactsForm {
     email: string;
     phone: string;
-}`
+}
+```
 
 ## Класс DeliveryForm
 Класс упарвляет и отображает форму ввода и выбора данных для доставки при составлении заказа.
 
 Компонент наследования:
-`interface IDeliveryForm {
+```typescript
+interface IDeliveryForm {
     address: string;
     payment: string;
-}`
+}
+```
 
 ## Класс Page
 Класс отображения страницы с товарами и корзиной.
 
 Компонент наследования:
-`interface IPage {
+```typescript
+interface IPage {
     counter: number;
     catalog: HTMLElement[];
     locked: boolean;
-}`
+}
+```
 
 ## Класс Card
 Класс карточки товара и отображения ее данных.
 
 Компонент наследования:
-`interface ICard extends IProductItem {
+```typescript
+interface ICard extends IProductItem {
     count?: string;
     buttonText?: string;
-}`
+}
+```
 
 
 ## Класс Basket
 Класс отображения корзины и входящих в нее товаров.
 
 Компонент наследования:
-`interface IBasketView {
+```typescript
+interface IBasketView {
     items: HTMLElement[];
     total: number;
-}`
+}
+```
 
 
 ## Класс Modal
 Класс отображения модального окна.
 
 Компонент наследования:
-`interface IModalData {
+```typescript
+interface IModalData {
     content: HTMLElement;
-}`
+}
+```
 
 ## Класс Success
 Класс отображения успешного оформления товара.
 
 Компонент наследования:
-`interface ISuccess {
+```typescript
+interface ISuccess {
     total: number | null;
-}`
+}
+```
 
 
 
 # Типы данных
 
-`// Методы запросов к серверу
+```typescript
+// Методы запросов к серверу
 export type ApiPostMethods = 'POST' | 'PUT' | 'DELETE';
 
 // Ответ от сервера
@@ -312,4 +331,5 @@ export interface IActions {
   
 export interface ISuccessActions {
     onClick: () => void;
-}`
+}
+```
