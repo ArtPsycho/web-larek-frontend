@@ -82,25 +82,234 @@ yarn build
 
 # Компоненты модели данных
 
-## Класс Product
+## Класс ProductItem
+Класс создания у управления данными продукта.
 
-## Класс 
+Компонент наследования:
+`interface IProductItem {
+    id: string;
+    title: string;
+    description?: string;
+    image: string;
+    category: string;
+    price: number | null;
+}`
 
-##
+## Класс AppState
+Класс хранения состояния приложения (данных входящих в него компонентов).
+
+Методы:
+- `addToBasket` - добавление товара в корзину
+- `removeFromBasket` - удаление товара из корзины
+- `clearBasket`
+- `setDelivery` - данные по доставке
+- `setContacts` - данные о контактах
+- `setCatalog` - каталог товаров
+- `setPreview` - предпросмотр продукта
+- `validateDelivery` - проверка валидности формы доставки
+- `validateContacts` - проверка валидности формы контактов
+
+
+Компонент наследования:
+`interface IAppState {
+    catalog: IProductItem[];
+    basket: IProductItem[];
+    preview: string | null;
+    contact: IContactsForm | null;
+    delivery: IDeliveryForm | null;
+    order: IOrderForm | null;
+}`
 
 
 # Компоненты представления
 
-## Класс Basket
+## Класс ContactsForm
+Класс управляет и отображает форму ввода контактов для составления заказа.
 
-## Класс Form
+Компонент наследования:
+`interface IContactsForm {
+    email: string;
+    phone: string;
+}`
 
-## Класс Modal
+## Класс DeliveryForm
+Класс упарвляет и отображает форму ввода и выбора данных для доставки при составлении заказа.
 
-## Класс Success
-
-## Класс Card
-
-## Класс Order
+Компонент наследования:
+`interface IDeliveryForm {
+    address: string;
+    payment: string;
+}`
 
 ## Класс Page
+Класс отображения страницы с товарами и корзиной.
+
+Компонент наследования:
+`interface IPage {
+    counter: number;
+    catalog: HTMLElement[];
+    locked: boolean;
+}`
+
+## Класс Card
+Класс карточки товара и отображения ее данных.
+
+Компонент наследования:
+`interface ICard extends IProductItem {
+    count?: string;
+    buttonText?: string;
+}`
+
+
+## Класс Basket
+Класс отображения корзины и входящих в нее товаров.
+
+Компонент наследования:
+`interface IBasketView {
+    items: HTMLElement[];
+    total: number;
+}`
+
+
+## Класс Modal
+Класс отображения модального окна.
+
+Компонент наследования:
+`interface IModalData {
+    content: HTMLElement;
+}`
+
+## Класс Success
+Класс отображения успешного оформления товара.
+
+Компонент наследования:
+`interface ISuccess {
+    total: number | null;
+}`
+
+
+
+# Типы данных
+
+`// Методы запросов к серверу
+export type ApiPostMethods = 'POST' | 'PUT' | 'DELETE';
+
+// Ответ от сервера
+export type ApiListResponse<Type> = {
+    total: number,
+    items: Type[]
+};
+
+// Реализация Event
+export type EventName = string | RegExp;
+export type Subscriber = Function;
+export type EmitterEvent = {
+    eventName: string,
+    data: unknown
+};
+
+
+// Данные о товаре
+export interface IProductItem {
+    id: string;
+    title: string;
+    description?: string;
+    image: string;
+    category: string;
+    price: number | null;
+}
+
+// Состояние приложения
+export interface IAppState {
+    catalog: IProductItem[];
+    basket: IProductItem[];
+    preview: string | null;
+    contact: IContactsForm | null;
+    delivery: IDeliveryForm | null;
+    order: IOrderForm | null;
+}
+
+// Форма контактов
+export interface IContactsForm {
+    email: string;
+    phone: string;
+}
+
+// Форма доставки
+export interface IDeliveryForm {
+    address: string;
+    payment: string;
+}
+
+// Форма данных заказа
+export interface IOrderForm extends IContactsForm, IDeliveryForm {
+    total: number;
+    items: string[];
+}
+
+
+// Ответ сервера на заказ
+export interface IOrderResult {
+    id: string;
+    total: number;
+}
+
+
+// Компоненты представления
+
+// Отображение страницы
+export interface IPage {
+    counter: number;
+    catalog: HTMLElement[];
+    locked: boolean;
+}
+
+// Отображение карточки
+export interface ICard extends IProductItem {
+    count?: string;
+    buttonText?: string;
+}
+
+
+// Отображение успешного оформления заказа
+export interface ISuccess {
+    total: number | null;
+}
+
+// Отображение корзины
+export interface IBasketView {
+    items: HTMLElement[];
+    total: number;
+}
+
+// Валидность формы
+export interface IFormState {
+    valid: boolean;
+    errors: string[];
+}
+
+// Ошибки форм
+export type FormErrors = Partial<Record<keyof IOrderForm, string>>;
+
+//модальное окно
+export interface IModalData {
+    content: HTMLElement;
+}
+
+
+
+// Методы для API приложения
+export interface ILarekAPI {
+    getCardList: () => Promise<ICard[]>;
+    getCard: (id: string) => Promise<ICard>;
+    orderItems: (order: IOrderForm) => Promise<IOrderResult>;
+}
+
+
+export interface IActions {
+    onClick: (event: MouseEvent) => void;
+}
+  
+export interface ISuccessActions {
+    onClick: () => void;
+}`
