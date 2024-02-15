@@ -21,7 +21,7 @@ export interface IProductItem {
     id: string;
     title: string;
     description?: string;
-    image: string;
+    image?: string;
     category: string;
     price: number | null;
 }
@@ -44,12 +44,12 @@ export interface IContactsForm {
 
 // Форма доставки
 export interface IDeliveryForm {
-    address: string;
     payment: string;
+    address: string;
 }
 
 // Форма данных заказа
-export interface IOrderForm extends IContactsForm, IDeliveryForm {
+export interface IOrderForm extends IDeliveryForm, IContactsForm {
     total: number;
     items: string[];
 }
@@ -108,7 +108,7 @@ export interface IModalData {
 // Методы для API приложения
 export interface ILarekAPI {
     getCardList: () => Promise<ICard[]>;
-    getCard: (id: string) => Promise<ICard>;
+    // getCard: (id: string) => Promise<ICard>;
     orderItems: (order: IOrderForm) => Promise<IOrderResult>;
 }
 
