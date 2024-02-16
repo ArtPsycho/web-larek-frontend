@@ -103,8 +103,6 @@ export interface IModalData {
     content: HTMLElement;
 }
 
-
-
 // Методы для API приложения
 export interface ILarekAPI {
     getCardList: () => Promise<ICard[]>;

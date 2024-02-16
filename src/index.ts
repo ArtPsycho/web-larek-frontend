@@ -56,11 +56,6 @@ events.on<CatalogChangeEvent>('items:changed', () => {
         return card.render({
             title: item.title,
             image: item.image,
-            // description: item.about,
-            // status: {
-            //     status: item.status,
-            //     label: item.statusLabel
-            // },
             category: item.category,
             price: item.price
         });
@@ -76,45 +71,6 @@ events.on('basket:open', () => {
         content: basket.render({})
     })
 })
-
-// // Отправлена форма заказа
-// events.on('order:submit', () => {
-//     api.orderLots(appData.order)
-//         .then((result) => {
-//             const success = new Success(cloneTemplate(successTemplate), {
-//                 onClick: () => {
-//                     modal.close();
-//                     appData.clearBasket();
-//                     events.emit('auction:changed');
-//                 }
-//             });
-
-//             modal.render({
-//                 content: success.render({})
-//             });
-//         })
-//         .catch(err => {
-//             console.error(err);
-//         });
-// });
-
-// // Изменилось состояние валидации формы
-// events.on('formErrors:change', (errors: Partial<IOrderForm>) => {
-//     const { email, phone } = errors;
-//     order.valid = !email && !phone;
-//     order.errors = Object.values({phone, email}).filter(i => !!i).join('; ');
-// });
-
-// // Изменилось одно из полей
-// events.on(/^order\..*:change/, (data: { field: keyof IOrderForm, value: string }) => {
-//     appData.setOrderField(data.field, data.value);
-// });
-
-
-// // Открыть лот
-// events.on('card:select', (item: LotItem) => {
-//     appData.setPreview(item);
-// });
 
 // Открытие карточки
 events.on('card:select', (item: ICard) => {
@@ -141,7 +97,6 @@ events.on('preview:changed', (item: ICard) => {
     })
 });
 
-//   this.basket.indexOf(item.id) === -1
 
 // Добавить в корзину
 events.on('item:add', (item: ICard) => {

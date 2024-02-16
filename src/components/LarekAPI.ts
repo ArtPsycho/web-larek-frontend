@@ -1,5 +1,6 @@
 import { Api } from './base/api';
-import {IOrderForm, IOrderResult, ICard, ApiListResponse, ILarekAPI} from "../types";
+import {IOrderForm, IOrderResult, ICard, ApiListResponse, ILarekAPI, IAppState} from "../types";
+import { AppState } from './AppData';
 
 
 export class LarekAPI extends Api implements ILarekAPI {
@@ -16,7 +17,8 @@ export class LarekAPI extends Api implements ILarekAPI {
                 ...item,
                 image: this.cdn + item.image,
             }))
-        );
+
+        )
     }
 
     orderItems(order: IOrderForm): Promise<IOrderResult> {
